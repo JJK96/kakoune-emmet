@@ -6,10 +6,7 @@ A wrapper around [emmet-cli](https://github.com/Delapouite/emmet-cli) that uses 
 
 Make sure `emmet` is in your path
 
-### Manual
-
 Load `emmet.kak` either manually or using [plug.kak](https://github.com/andreyorst/plug.kak)
-
 
 ## Dependencies
 
