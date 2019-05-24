@@ -1,12 +1,32 @@
-I used [emmet-cli](https://github.com/Delapouite/emmet-cli) and [kakoune-snippets](https://github.com/occivink/kakoune-snippets) to make a completer that inserts an emmet snippet upon selection.
+# Emmet.kak
 
-What works:
+A wrapper around [emmet-cli](https://github.com/Delapouite/emmet-cli) that uses [kakoune-snippets](https://github.com/occivink/kakoune-snippets) to process the snippets.
 
-- Filling the completions
-- Selecting (and thus applying) a snippet
+## Setup
 
-What needs more work:
+Load `emmet.kak`
+Make sure `emmet` is in your path
 
-- When mixed with other completions, the emmet completions disappear
-- Has a noticeable impact on fluency of the editor due to all the requests to emmet. Maybe it would be better to make a regex that already contains all possible emmet commands, so that no calls to emmet are needed except for inserting a snippet.
-- There is no support ATM for more elaborate emmet commands (e.g. `ul>li*5`). These can be inserted manually using the `:emmet` command though.
+
+## Dependencies
+
+- [emmet-cli](https://github.com/Delapouite/emmet-cli)
+- [kakoune-snippets](https://github.com/occivink/kakoune-snippets)
+
+## Usage
+
+### Manual
+
+1. Enter a [valid emmet abbreviation](https://docs.emmet.io/abbreviations/syntax) into the buffer.
+2. Select it.
+3. run `:emmet`
+
+You can also create mappings for ease of use, some examples:
+
+To expand the current line:
+
+`map global insert <a-e> "<esc>x: emmet<ret>"`
+
+### Completer
+
+Upon selecting an emmet completion the snippet is inserted
