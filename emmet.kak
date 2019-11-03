@@ -14,7 +14,7 @@ define-command emmet %{
 declare-option completions emmet_completions 
 
 hook global WinSetOption filetype=(xml|html|php) %{
-    set -add buffer completers option=emmet_completions
+    set-option window completers "option=emmet_completions" %opt{completers}
     hook -group emmet-complete buffer InsertIdle .* %{
         evaluate-commands -draft %{
             try %{
