@@ -4,8 +4,7 @@ define-command emmet %{
     evaluate-commands -save-regs '"' %{
         execute-keys -save-regs "" d
         evaluate-commands %sh{
-            eval set -- "$kak_reg_dquote"
-            snippet=$(echo "$@" | emmet -p )
+            snippet=$(echo "$kak_reg_dquote" | emmet -p )
             echo "snippets-insert %{$snippet}"
         }
     }
@@ -22,8 +21,7 @@ hook global WinSetOption filetype=(xml|html|php) %{
                 evaluate-commands %{
                     execute-keys -save-regs "" yz
                     evaluate-commands %sh{
-                        eval set -- "$kak_reg_dquote"
-                        snippet=$(echo "$@" | emmet -p )
+                        snippet=$(echo "$kak_reg_dquote" | emmet -p )
                         [ -z "$snippet" ] || printf "set buffer emmet_completions %s.%s@%s ' |exec -draft <esc>bd;snippets-insert %%{%s}|%s (emmet abbr)'" "$kak_cursor_line" "$kak_cursor_column" $(date +%N) "$snippet" "$@"
                     }
                 }
