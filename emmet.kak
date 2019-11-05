@@ -10,6 +10,10 @@ define-command emmet %{
     }
 }
 
+define-command emmet-select-abbreviation %{
+    execute-keys <a-B><a-\;>H
+}
+
 declare-option completions emmet_completions 
 
 hook global WinSetOption filetype=(xml|html|php) %{
@@ -17,13 +21,12 @@ hook global WinSetOption filetype=(xml|html|php) %{
     hook -group emmet-complete buffer InsertIdle .* %{
         evaluate-commands -draft %{
             try %{
-                execute-keys -save-regs "" Zb
-                evaluate-commands %{
-                    execute-keys -save-regs "" yz
-                    evaluate-commands %sh{
-                        snippet=$(echo "$kak_reg_dquote" | emmet -p )
-                        [ -z "$snippet" ] || printf "set buffer emmet_completions %s.%s@%s ' |exec -draft <esc>bd;snippets-insert %%{%s}|%s (emmet abbr)'" "$kak_cursor_line" "$kak_cursor_column" $(date +%N) "$snippet" "$@"
-                    }
+                execute-keys -save-regs "" Z
+                emmet-select-abbreviation
+                execute-keys -save-regs "" yz
+                evaluate-commands %sh{
+                    snippet=$(echo "$kak_reg_dquote" | emmet -p )
+                    [ -z "$snippet" ] || printf "set window emmet_completions %s.%s@%s ' |eval -draft %%{emmet-select-abbreviation;exec d};snippets-insert %%{%s}|%s (emmet abbr)'" "$kak_cursor_line" "$kak_cursor_column" $(date +%N) "$snippet" "$kak_reg_dquote"
                 }
 
             } catch %{
