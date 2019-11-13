@@ -29,4 +29,6 @@ To expand the current line:
 
 ### Completer
 
+You can enable the emmet completer by running `emmet-enable-autocomplete`
+
 Upon selecting an emmet completion the snippet is inserted
