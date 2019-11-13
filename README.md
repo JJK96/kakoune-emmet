@@ -32,3 +32,11 @@ To expand the current line:
 You can enable the emmet completer by running `emmet-enable-autocomplete`
 
 Upon selecting an emmet completion the snippet is inserted
+
+The completer tries to select an abbreviation based on `emmet-select-abbreviation`, which selects until the previous whitespace.
+
+You can override `emmet-select-abbreviation` with another function to select abbreviations differently.
+
+## TODO
+
+- Select based on a regex
