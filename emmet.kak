@@ -17,7 +17,7 @@ define-command emmet-select-abbreviation %{
 declare-option completions emmet_completions 
 
 define-command emmet-complete %{
-    evaluate-commands -draft %{
+    evaluate-commands -draft -save-regs '^"' %{
         try %{
             execute-keys -save-regs "" Z
             emmet-select-abbreviation
@@ -25,7 +25,7 @@ define-command emmet-complete %{
             evaluate-commands %sh{
                 (
                 snippet=$(echo "$kak_reg_dquote" | emmet -p )
-                [ -z "$snippet" ] || printf "eval -client %s %%{
+                [ -z "$snippet" ] || printf "eval -client %s -save-regs '\"' %%{
                     set window emmet_completions %s.%s@%s \
                         ' |eval -draft %%{emmet-select-abbreviation;exec d};snippets-insert %%{%s}|%s (emmet abbr)'
                     }" "$kak_client" "$kak_cursor_line" "$kak_cursor_column" $(date +%N) "$snippet" "$kak_reg_dquote" | kak -p $kak_session
